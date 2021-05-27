@@ -34,7 +34,7 @@ function [Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, la
 %     pL      -   Required time percentage for which the calculated basic
 %                 transmission loss is not exceeded (1% - 99%)
 %     sigmaLoc-   location variability standard deviations computed using
-%                 stdDev.m according to §4.8 and §4.10
+%                 stdDev.m according to ï¿½4.8 and ï¿½4.10
 %                 the value of 5.5 dB used for planning Broadcasting DTT
 %     Ptx     -   Transmitter power (kW), default value 1 kW
 %     DN      -   The average radio-refractive index lapse-rate through the
@@ -488,7 +488,7 @@ Lbu = Lbu_pol(pol);
 % Parameter ws relates to the width of the street. It is set to 27 unless
 % there is specific local information available 
 
-ws = 27;
+% ws = 27;
 
 % Transmitter side
 

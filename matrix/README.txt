@@ -25,7 +25,7 @@ Files and subfolders in the distribution .zip package.
                                computations for the set of terrain profiles defined
                                in the folder ./validation_profiles/
 
- ./private/                      - Folder containing the functions used by tl_p1812.m and validate_p1812.m
+ ./private/                  - Folder containing the functions used by tl_p1812.m and validate_p1812.m
 
 
 UPDATES AND FIXES

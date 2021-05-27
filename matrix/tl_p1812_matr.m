@@ -427,7 +427,7 @@ Lbu = -5 .* log10(10.^(-0.2.*Lbs)+10.^(-0.2.*Lbam));  % eq (63)
 
 % Parameter ws relates to the width of the street. It is set to 27 unless
 % there is specific local information available 
-ws = 27;
+% ws = 27;
 
 % Transmitter side
 Aht = cl_loss(htg,R(:,1),Ct(:,1),f,ws);
