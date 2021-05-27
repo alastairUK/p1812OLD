@@ -64,3 +64,6 @@ docs/_build
 
 # jupyter
 .ipynb_checkpoints
+
+# octave
+octave-workspace
