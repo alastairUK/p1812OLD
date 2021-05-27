@@ -1,7 +1,7 @@
 function [Lb,Ep,Ld50,maxI] = ...
     tl_p1812_matr(f,p,d,h,R,Ct,zone,htg,hrg,pol,varargin)
-%tl_p1812 basic transmission loss according to P.1812-5
-%   [Lb Ep] = tl_p1812(f,p,d,h,zone,htg,hrg,phi_t,phi_r,lam_t,lam_r,pol,varargin)
+%tl_p1812 basic transmission loss according to P.1812-5 supporting matrix inputs
+%   [Lb Ep] = tl_p1812_matr(f,p,d,h,zone,htg,hrg,phi_t,phi_r,lam_t,lam_r,pol,varargin)
 %
 %   This is the MAIN function that computes the basic transmission loss not exceeded for p% time
 %   and pL% locations, including additional losses due to terminal surroundings
@@ -10,7 +10,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %   This function: 
 %   does not include the building entry loss (only outdoor scenarios implemented)
 %
-%   Other functions called from this function are in ./src/ subfolder.
+%   Other functions called from this function are in ./private/ subfolder.
 %
 %   Input parameters:
 %     f       -   Frequency (GHz)
@@ -29,7 +29,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %     hrg     -   Rx Antenna center heigth above ground level (m)
 %     pol     -   polarization of the signal (1) horizontal, (2) vertical
 % 
-%   Input parameters repated to path centre.
+%   Input parameters related to path centre.
 %   EITHER the following are required:
 %     phi_t    - latitude of Tx station (degrees)
 %     phi_r    - latitude of Rx station (degrees)
@@ -125,6 +125,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %     v10   19MAY21     Kostas Konstantinou, Ofcom      Compatibility with Octave
 %  
 % MATLAB Version 9.2.0.556344 (R2017a) used in development of this code
+% The code is tested and runs on Octave version 6.1.0 (2020-11-26)
 %
 % THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 % EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
