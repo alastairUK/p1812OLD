@@ -34,7 +34,7 @@ Version 5.4 (08.04.21)
 
 	- Introduced location variability for outdoor propagation
         - Introduced alternative method to compute Lbulls w/o using 
-          terrain profile (Attachment 4 to Annex 1)
+          terrain profile (Attachment 4 to Annex 1)  test
 
 Version 4.1 (28.05.18)
 
