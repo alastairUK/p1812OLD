@@ -117,6 +117,10 @@ if any(isTranshori)
     dtot2 = dtot(IND);
     
     [row,col] = find(theta(IND,:)==theta_max(IND));
+    if nnz(IND)==1 && size(row,2)>1
+        row = row.';
+        col = col.';
+    end
     kindex = accumarray(row,col,[N 1],@min);
     lt(IND) = kindex + 1;  % in order to map back to path d indices, as theta takes path indices 2 to n-1, 
     ind = size(d,1).*(lt(IND)-1) + INDf;
