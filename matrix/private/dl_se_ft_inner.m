@@ -56,7 +56,7 @@ Yr = 0.9575 .* beta_dft .* (f.^2./adft).^(1./3).*hre;  % Eq (32b)
 IND = X >= 1.6;
 Fx = zeros(size(X),class(X));
 if any(IND)
-    Fx(IND) = 11 + 10.*log10(X(IND)) - 17.6.*X;
+    Fx(IND) = 11 + 10.*log10(X(IND)) - 17.6.*X(IND);
 end
 if any(~IND)
     Fx(~IND) = -20.*log10(X(~IND)) - 5.6488.*X(~IND).^1.425;  % Eq (33)
