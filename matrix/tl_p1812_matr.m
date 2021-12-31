@@ -372,7 +372,7 @@ kappa = 0.5;
 Fk = 1.0 - 0.5.*(1.0+tanh(3.0.*kappa.*(dtot-dsw)./dsw)); % eq (58)
 [Lbfs,Lb0p,Lb0b] = pl_los(dtot,f,p,b0,dlt,dlr);
 [Ldp,Ldb,Ld50,Lbulla50,Lbulls50,Ldsph50,maxI] = ...
-    dl_p(d,g,htc,hrc,hstd,hsrd,f,omega,p,b0,DN,pol,flag4);
+    dl_p(d,g,htc,hrc,hstd,hsrd,f,omega,p,b0,DN,pol,flag4,debug);
 
 % The median basic transmission loss associated with diffraction Eq (42)
 Lbd50 = Lbfs + Ld50;

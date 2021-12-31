@@ -1,5 +1,5 @@
 function [Ldp,Ldb,Ld50,Lbulla50,Lbulls50,Ldsph50,maxI] = ...
-    dl_p(d,g,hts,hrs,hstd,hsrd,f,omega,p,b0,DN,pol,flag4)
+    dl_p(d,g,hts,hrs,hstd,hsrd,f,omega,p,b0,DN,pol,flag4,debug)
 %dl_p Diffraction loss model not exceeded for p% of time according to P.1812-4
 %   function [Ldp, Ld50, Lbulla50, Lbulls50, Ldsph50] = dl_p( d, h, hts, hrs, hstd, hsrd, ap, f, omega, p, b0, DN, flag4 )
 %
@@ -66,8 +66,13 @@ ap = ae;
 
 if p == 50
     Ldp = Ld50;
-    ap = ab;
-    Ldb = dl_delta_bull(d,g,hts,hrs,hstd,hsrd,ap,f,omega,pol,flag4);
+
+    if debug
+        ap = ab;
+        Ldb = dl_delta_bull(d,g,hts,hrs,hstd,hsrd,ap,f,omega,pol,flag4);
+    else
+        Ldb = [];
+    end
     return
 end
 
