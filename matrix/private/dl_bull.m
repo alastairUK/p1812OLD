@@ -90,7 +90,8 @@ if ~isempty(IND)
     % The knife-edge loss for the Bullington point is given by
     IND2 = nub > -0.78;
     if any(IND2)
-        Luc(IND(IND2)) = 6.9 + 20.*log10(sqrt((nub-0.1).^2+1)+nub-0.1);  % Eq (12), (20)
+        Luc(IND(IND2)) = 6.9 + ...
+            20.*log10(sqrt((nub(IND2)-0.1).^2+1)+nub(IND2)-0.1);  % Eq (12), (20)
     end
 end
 
