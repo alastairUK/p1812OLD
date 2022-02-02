@@ -18,7 +18,7 @@ function sigmaLoc = stdDev(f, h, R, wa)
 % the coefficient multiplying f should be 0.024 and not 0.0024
 % this will be corrected at the 2020 WP 3K meeting
 
-sigmaLoc = (0.52+0.024.*f) .* wa.^0.28;
+sigmaLoc = (0.52+0.024.*f) .* wa.^0.28 .* ones(size(h),class(h));
 
 uh = ones(size(h),class(h));
 IND = h<R & h>=R+10;
