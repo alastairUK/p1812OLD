@@ -123,6 +123,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %     v8    08MAR21     Kostas Konstantinou, Ofcom      Support matrix inputs
 %     v9    16APR21     Ivica Stevanovic, OFCOM         Compatibility with Octave 
 %     v10   19MAY21     Kostas Konstantinou, Ofcom      Compatibility with Octave
+%     v11   02FEB22     Kostas Konstantinou, Ofcom      Update to 1812-6
 %  
 % MATLAB Version 9.2.0.556344 (R2017a) used in development of this code
 % The code is tested and runs on Octave version 6.1.0 (2020-11-26)
