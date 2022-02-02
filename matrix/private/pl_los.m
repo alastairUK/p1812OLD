@@ -1,4 +1,4 @@
-function [Lbfs, Lb0p, Lb0b] = pl_los(d, f, p, b0, dlt, dlr)
+function [Lbfs,Lb0p,Lb0b] = pl_los(d,f,p,b0,dlt,dlr,hts,hrs)
 %pl_los Line-of-sight transmission loss according to ITU-R P.1812-4
 %     This function computes line-of-sight transmission loss (including short-term effects)
 %     as defined in ITU-R P.1812-4.
@@ -30,11 +30,12 @@ function [Lbfs, Lb0p, Lb0b] = pl_los(d, f, p, b0, dlt, dlr)
 %     v0    04FEB14     Ivica Stevanovic, OFCOM         First implementation in matlab (for P.452-16)
 %     v1    06JUL16     Ivica Stevanovic, OFCOM         First implementation in matlab (for P.1812-4)
 %     v2    09MAR21     Kostas Konstantinou, Ofcom      Allow d to be a matrix, and b0,dlt,dlr to be vectors
+%     v3    18NOV21     Kostas Konstantinou, Ofcom      Update to 1812-6
 
 
-% Basic transmission loss due to free-space propagation 
-
-Lbfs = 92.45 + 20.0*log10(f) + 20.0*log10(d);  % (8)
+% Basic transmission loss due to free-space propagation
+dfs = sqrt(d.^2+((hts-hrs)./1000).^2);
+Lbfs = 92.4 + 20.0*log10(f) + 20.0*log10(dfs);  % (8)
 
 % Corrections for multipath and focusing effects at p and b0
 if p == 50
