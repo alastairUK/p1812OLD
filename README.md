@@ -81,6 +81,6 @@ The code was tested and runs on:
 
 ## References
 
-[Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en)
+* [Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en)
 
-[ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx)
+* [ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx)
