@@ -1,6 +1,7 @@
 # MATLAB/Octave Implementation of Recommendation ITU-R P.1812-6
 
 This code repository contains a MATLAB/Octave software implementation of Recommendation ITU-R P.1812 with a path-specific propagation prediction method for point-to-area terrestrial services in the frequency range 30 MHz to 6000 MHz.  
+
 The reference version of this code (as approved by ITU-R Working Party 3K) is published by Study Group 3 on [ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx).
 
 The following table describes the structure of the folder `./matlab/` containing the MATLAB/Octave implementation of Recommendation ITU-R P.1812.
@@ -9,7 +10,7 @@ The following table describes the structure of the folder `./matlab/` containing
 |----------------------------|---------------------------------------------------------------------|
 |`tl_p1812.m`                | MATLAB function implementing Recommendation ITU-R P.1812-6          |
 |`validate_p1812.m`          | MATLAB script used to validate the implementation of Recommendation ITU-R P.1812-6 in `tl_p1812.m`             |
-|`./validation_profiles/`    | Folder containing a proposed set of terrain profiles for validation of MATLAB implementation (or any other software implementation) of this Recommendation |
+|`./validation_profiles/`    | Folder containing a proposed set of terrain profiles and inputs for validation of MATLAB implementation (or any other software implementation) of this Recommendation |
 |`./validation_results/`	   | Folder containing all the results written during the transmission loss computations for the set of terrain profiles defined in the folder `./validation_profiles/` |
 |`./private/`   |             Folder containing the functions called by `tl_p1812.m` and `validate_p1812.m`|
 
@@ -17,17 +18,19 @@ The following table describes the structure of the folder `./matlab/` containing
 
 The function `tl_p1812` can be called
 
-1. by invoking only the first fourteen required input arguments:
+1. by invoking only the required input arguments:
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol);
+~~~
 
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol);`
-
-2. by explicitly invoking all the input arguments:
-
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);`
-
-3. or by explicitly omitting some of the optional input arguments:
-
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);`
+2. by explicitly invoking all the input arguments (both required and optional):
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);
+~~~
+3. or by explicitly omitting some of the optional input arguments using []:
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);
+~~~
 
 ## Required input arguments of function `tl_p1812`
 
@@ -70,8 +73,15 @@ The function `tl_p1812` can be called
 | Variable   | Type   | Units | Description |
 |------------|--------|-------|-------------|
 | `Lb`    | double | dB    | Basic transmission loss |
-| `Ep`    | double | dB    | Electric field strength |
+| `Ep`    | double | dB(uV/m)    | Electric field strength |
+
+## Software Versions
+The code was tested and runs on:
+* MATLAB versions 2017a and 2020a
+* Octave version 6.1.0
 
 ## References
 
-[Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en).
+* [Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en)
+
+* [ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx)
