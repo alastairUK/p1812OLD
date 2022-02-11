@@ -35,7 +35,7 @@ The function `tl_p1812` can be called
 |-------------------|--------|-------|--------------|--------------|
 | `f`               | scalar double | GHz   | 0 ≤ `f` ≤ 6 | Frequency   |
 | `p         `      | scalar double | %     | 1 ≤ `p` ≤ 50 | Time percentage for which the calculated basic transmission loss is not exceeded |
-| `d`               | array double | km    | ~0.25 ≤ `max(d)` ≤ ~3000 | Terrain profile distances (from the transmitter)|
+| `d`               | array double | km    | ~0.25 ≤ `max(d)` ≤ ~3000 | Terrain profile distances (in the ascending order from the transmitter)|
 | `h`          | array double | m (asl)   |   | Terrain profile heights |
 | `R`           | array double    | m      |              |  Representative clutter heights |
 | `Ct`           | array int    |       |  1 - Water/sea, 2 - Open/rural, 3 - Suburban, 4 - Urban/trees/forest, 5 - Dense urban             |  Array of representative clutter types. If empty or all zeros, the default clutter type used is Open/rural |
