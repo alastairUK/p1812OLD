@@ -9,7 +9,7 @@ The following table describes the structure of the folder `./matlab/` containing
 |----------------------------|---------------------------------------------------------------------|
 |`tl_p1812.m`                | MATLAB function implementing Recommendation ITU-R P.1812-6          |
 |`validate_p1812.m`          | MATLAB script used to validate the implementation of Recommendation ITU-R P.1812-6 in `tl_p1812.m`             |
-|`./validation_profiles/`    | Folder containing a proposed set of terrain profiles for validation of MATLAB implementation (or any other software implementation) of this Recommendation |
+|`./validation_profiles/`    | Folder containing a proposed set of terrain profiles and inputs for validation of MATLAB implementation (or any other software implementation) of this Recommendation |
 |`./validation_results/`	   | Folder containing all the results written during the transmission loss computations for the set of terrain profiles defined in the folder `./validation_profiles/` |
 |`./private/`   |             Folder containing the functions called by `tl_p1812.m` and `validate_p1812.m`|
 
