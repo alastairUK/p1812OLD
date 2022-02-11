@@ -17,15 +17,15 @@ The following table describes the structure of the folder `./matlab/` containing
 
 The function `tl_p1812` can be called
 
-1. by invoking only the first fourteen required input arguments:
+1. by invoking only the required input arguments:
 
 `[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol);`
 
-2. by explicitly invoking all the input arguments:
+2. by explicitly invoking all the input arguments (both required and optional):
 
 `[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);`
 
-3. or by explicitly omitting some of the optional input arguments:
+3. or by explicitly omitting some of the optional input arguments ([]):
 
 `[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);`
 
