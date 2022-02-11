@@ -12,7 +12,7 @@
 % Author: Ivica Stevanovic (IS), Federal Office of Communications, Switzerland
 % Revision History: 
 % Date            Revision
-% 11FEB22         Aligned with P-1812-6
+% 11FEB22         Aligned with P.1812-6
 % 28JUL20         Introduced alternative method to compute Lbulls w/o using 
 %                 terrain profile (Attachment 4 to Annex 1)
 % 19MAR20         Modified to align to P.1812-5 
@@ -31,16 +31,15 @@ fclose all;
 
 try
     
-%     % add path to the folder where the functions are defined
-%     s = pwd;
-%     if ~exist('read_sg3_measurements.m','file')
-%         addpath([s '/private/'])
-%     end
+    % add path to the folder where the functions are defined
+    s = pwd;
+    if ~exist('read_sg3_measurements.m','file')
+        addpath([s '/private/'])
+    end
     
     if (isOctave)
         page_screen_output(0);
         page_output_immediately(1);
-        addpath([s '/private/'])
     end
 catch
     error('Folder ./private/ does not appear to be on Octave search path.');
