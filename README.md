@@ -72,6 +72,11 @@ The function `tl_p1812` can be called
 | `Lb`    | double | dB    | Basic transmission loss |
 | `Ep`    | double | dB    | Electric field strength |
 
+## Software Versions
+The code was tested and runs on:
+* MATLAB versions 2017a and 2020a
+* Octave version 6.1.0
+
 ## References
 
 [Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en).
