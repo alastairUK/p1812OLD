@@ -6,7 +6,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %   This is the MAIN function that computes the basic transmission loss not exceeded for p% time
 %   and pL% locations, including additional losses due to terminal surroundings
 %   and the field strength exceeded for p% time and pL% locations
-%   as defined in ITU-R P.1812-5. 
+%   as defined in ITU-R P.1812-6. 
 %   This function: 
 %   does not include the building entry loss (only outdoor scenarios implemented)
 %
@@ -40,7 +40,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %   Examples of both cases are provided below.
 %
 %   Output parameters:
-%     Lb   - basic transmission loss according to P.1812-5
+%     Lb   - basic transmission loss according to P.1812-6
 %     Ep   - the field strength relative to Ptx
 %     Ld50 - median diffraction loss, dB
 %     maxI - path index with highest diffraction parameter
@@ -49,19 +49,19 @@ function [Lb,Ep,Ld50,maxI] = ...
 % Examples:
 % 
 % 1) Call with required input parameters, and latitude/longitude of Tx/Rx:
-% [Lb,Ep] = tl_p1812(f,p,d,h,R,Ct,zone,htg,hrg,pol,...
+% [Lb,Ep] = tl_p1812_matr(f,p,d,h,R,Ct,zone,htg,hrg,pol,...
 %     'phi_t',phi_t,'phi_r',phi_r,'lam_t',lam_t,'lam_r',lam_r)
 %
 % 2) Call with required input parameters, and latitude of path centre:
-% [Lb,Ep] = tl_p1812(f,p,d,h,R,Ct,zone,htg,hrg,pol,'phi_path',phi_path);
+% [Lb,Ep] = tl_p1812_matr(f,p,d,h,R,Ct,zone,htg,hrg,pol,'phi_path',phi_path);
 %
 % 3) Call with Name-Value Pair Arguments. Specify optional comma-separated
 % pairs of Name,Value arguments. Name is the argument name and Value is the
 % corresponding value. Name must appear inside quotes. You can specify
 % several name and value pair arguments in any order as
 % Name1,Value1,...,NameN,ValueN. 
-% [Lb,Ep] = tl_p1812(___,Name,Value)
-% Example: tl_p1812(f,p,d,h,R,Ct,zone,htg,hrg,pol,'phi_path',phi_path,'DN',DN,'N0',N0)
+% [Lb,Ep] = tl_p1812_matr(___,Name,Value)
+% Example: tl_p1812_matr(f,p,d,h,R,Ct,zone,htg,hrg,pol,'phi_path',phi_path,'DN',DN,'N0',N0)
 % Below are the valid Name-Value Pair Arguments:
 % * pL - Required time percentage for which the calculated basic
 %        transmission loss is not exceeded (1% - 99%)
@@ -90,10 +90,8 @@ function [Lb,Ep,Ld50,maxI] = ...
 % * flag4 - Set to 1 if the alternative method is used to calculate Lbulls 
 %           without using terrain profile analysis (Attachment 4 to Annex 1)
 %           0 (default) | real scalar
-% * ws - Width of street. The value of 27 should be used unless
-%        specific local values are available (m)
-%        27 (default) | real scalar
-% * debug - Set to 1 if the log files are to be written, 
+% * debug - Set to 1 if the log files are to be written. It has effect only
+%           if size(d,1) == 1
 %           0 (default) | real scalar
 % * fid_log - If debug == 1, a file identifier of the log file can be
 %             provided. If not, the default file with a file 
@@ -101,7 +99,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %             [] (default)
 % 
 %
-% Numbers refer to Rec. ITU-R P.1812-5
+% Numbers refer to Rec. ITU-R P.1812-6
 
 %     Rev   Date        Author                          Description
 %     -------------------------------------------------------------------------------
@@ -124,6 +122,7 @@ function [Lb,Ep,Ld50,maxI] = ...
 %     v9    16APR21     Ivica Stevanovic, OFCOM         Compatibility with Octave 
 %     v10   19MAY21     Kostas Konstantinou, Ofcom      Compatibility with Octave
 %     v11   02FEB22     Kostas Konstantinou, Ofcom      Update to 1812-6
+%     v12   11FEB22     Ivica Stevanovic, OFCOM         Further updates to align to P.1812-6 (clutter, upper frequency limit)..
 %  
 % MATLAB Version 9.2.0.556344 (R2017a) used in development of this code
 % The code is tested and runs on Octave version 6.1.0 (2020-11-26)
@@ -162,7 +161,7 @@ iP.addParameter('N0',325)
 iP.addParameter('dct',500.*ones(NN1,1,class(d)))
 iP.addParameter('dcr',500.*ones(NN1,1,class(d)))
 iP.addParameter('flag4',0)
-iP.addParameter('ws',27)
+%iP.addParameter('ws',27)
 iP.addParameter('debug',0)
 iP.addParameter('fid_log',[])
 iP.parse(varargin{:});
@@ -191,15 +190,20 @@ end
 pL = iP.Results.pL;
 Ptx = iP.Results.Ptx;
 sigma = iP.Results.sigma;
-ws = iP.Results.ws;
+%ws = iP.Results.ws;
 
 % Correct variable sizes
 if NN1>1 && length(DN)==1
     DN = DN .* ones(NN1,1);
 end
 
+% results are logged and computed only if NN1 = 1
+if (NN1 > 1)
+    debug = 0;
+end
+
 % verify input argument values and limits
-check_limit(f, 0.03, 3.0, 'f [GHz]');
+check_limit(f, 0.03, 6.0, 'f [GHz]');
 check_limit(p, 1, 50, 'p [%]');
 check_limit(htg, 1, 3000, 'htg [m]');
 check_limit(hrg, 1, 3000, 'hrg [m]');
@@ -275,15 +279,15 @@ if (debug)
     fprintf(fid_log,['htg (m);;;' floatformat],htg);
     fprintf(fid_log,['hrg (m);;;' floatformat],hrg);
     fprintf(fid_log,['pol;;;' '%d\n'],pol);
-    fprintf(fid_log,['ws (m);;;' floatformat],ws);
+    %fprintf(fid_log,['ws (m);;;' floatformat],ws);
     fprintf(fid_log,['DN ;;;' floatformat],DN);
     fprintf(fid_log,['N0 ;;;' floatformat],N0);
     fprintf(fid_log,['dct (km) ;;;' floatformat],dct);
     fprintf(fid_log,['dcr (km) ;;;' floatformat],dcr);
-    fprintf(fid_log,['Rt (m) ;;;' floatformat],R(1));
-    fprintf(fid_log,['Rr (m) ;;;' floatformat],R(end));
-    fprintf(fid_log,['Ct Tx  ;Table 2;;' floatformat],Ct(1));
-    fprintf(fid_log,['Ct Rx ;Table 2;;' floatformat],Ct(end));
+    fprintf(fid_log,['R2 (m) ;;;' floatformat],R(2));
+    fprintf(fid_log,['Rn-1 (m) ;;;' floatformat],R(end-1));
+    fprintf(fid_log,['Ct Tx  ;Table 2;;' floatformat],Ct(2));
+    fprintf(fid_log,['Ct Rx ;Table 2;;' floatformat],Ct(end-1));
 end
 
 
@@ -321,11 +325,17 @@ hts = h(:,1) + htg;
 hrs = h(:,end) + hrg;
 
 % Modify the path by adding representative clutter, according to Section 3.2
+% this should not affect the Tx and Rx points c.f. P.1812-6
 g = h + cast(R,class(h));
+g(:,1) = h(:,1);
+g(:, end) = h(:, end);
+
 
 %Compute htc and hrc as defined in Table 5
-htc = max(hts,g(:,1));
-hrc = max(hrs,g(:,end));
+% htc = max(hts,g(:,1));
+% hrc = max(hrs,g(:,end));
+htc = hts;
+hrc = hrs;
 
 if (debug)
     fprintf(fid_log,';;;;\n');
@@ -371,7 +381,9 @@ Fj = 1.0 - 0.5.*(1.0+tanh(3.0.*KSI.*(theta-THETA)./THETA));
 dsw = 20;
 kappa = 0.5;
 Fk = 1.0 - 0.5.*(1.0+tanh(3.0.*kappa.*(dtot-dsw)./dsw)); % eq (58)
-[Lbfs,Lb0p,Lb0b] = pl_los(dtot,f,p,b0,dlt,dlr,hts,hrs);
+
+[Lbfs,Lb0p,Lb0b] = pl_los(dtot,hts,hrs,f,p,b0,dlt,dlr);
+
 [Ldp,Ldb,Ld50,Lbulla50,Lbulls50,Ldsph50,maxI] = ...
     dl_p(d,g,htc,hrc,hstd,hsrd,f,omega,p,b0,DN,pol,flag4,debug);
 
@@ -421,24 +433,24 @@ Lbs = tl_tropo(dtot, theta, f, p, N0);
 
 % Calculate the final transmission loss not exceeded for p% time
 % ignoring the effects of terminal clutter
-Lbu = -5 .* log10(10.^(-0.2.*Lbs)+10.^(-0.2.*Lbam));  % eq (63)
+Lbc = -5 .* log10(10.^(-0.2.*Lbs)+10.^(-0.2.*Lbam));  % eq (63)
 
 
 % additional losses due to terminal surroundings (Section 4.7)
-
+% are removed in P.1812-6
 % Parameter ws relates to the width of the street. It is set to 27 unless
 % there is specific local information available 
 % ws = 27;
 
-% Transmitter side
-Aht = cl_loss(htg,R(:,1),Ct(:,1),f,ws);
-
-% Receiver side
-Ahr = cl_loss(hrg,R(:,end),Ct(:,end),f,ws);
+% % Transmitter side
+% Aht = cl_loss(htg,R(:,1),Ct(:,1),f,ws);
+% 
+% % Receiver side
+% Ahr = cl_loss(hrg,R(:,end),Ct(:,end),f,ws);
 
 % Basic transmission loss not exceeded for p% time and 50% locations,
 % including the effects of terminal clutter losses
-Lbc = Lbu + Aht + Ahr;
+% Lbc = Lbu + Aht + Ahr;
 
 % Location variability of losses (Section 4.8)
 wa = max(diff(d,[],2),[],2) .* 1e3;  % prediction resolution, i.e., the width of the square area over which the variability applies
@@ -451,7 +463,7 @@ end
 
 % Basic transmission loss not exceeded for p% time and pL% locations
 % (Sections 4.8 and 4.9) not implemented
-Lb = max(Lb0p,Lbc+Lloc);  % eq (71)
+Lb = max(Lb0p,Lbc+Lloc);  % eq (69)
 
 % The field strength exceeded for p% time and pL% locations
 Ep = 199.36 + 20.*log10(f) - Lb;
@@ -493,9 +505,9 @@ fprintf(fid_log,['Ldsph (dB);Eq (27);;' floatformat],Ldsph50);
     fprintf(fid_log,['Lbda (dB);Eq (61);;' floatformat],Lbda);    
     fprintf(fid_log,['Lbam (dB);Eq (62);;' floatformat],Lbam);   
     fprintf(fid_log,['Lbs (dB);Eq (44);;' floatformat],Lbs);
-    fprintf(fid_log,['Lbu (dB);Eq (63);;' floatformat],Lbu);
-    fprintf(fid_log,['Aht (dB);Eq (64);;' floatformat],Aht);
-    fprintf(fid_log,['Ahr (dB);Eq (64);;' floatformat],Ahr);
+%     fprintf(fid_log,['Lbu (dB);Eq (63);;' floatformat],Lbu);
+%     fprintf(fid_log,['Aht (dB);Eq (64);;' floatformat],Aht);
+%     fprintf(fid_log,['Ahr (dB);Eq (64);;' floatformat],Ahr);
     fprintf(fid_log,['Lbc (dB);Eq (65);;' floatformat],Lbc);
     fprintf(fid_log,['Lb (dB);Eq (71);;' floatformat],Lb);
     fprintf(fid_log,['Ep (dBuV/m);Eq (72);;' floatformat],Ep);

@@ -11,14 +11,12 @@ if (~isOctave())
 else
     
     
-    load OptimExample19May2021.mat
+    load OptimExample11Feb2022Matlab.mat
     
     [Lb_octave,Ep_octave] = tl_p1812_matr(f,p,d,h,R,Ct,zone,htg,hrg,pol,...
         'phi_t',phi_t,'phi_r',phi_r,'lam_t',lam_t,'lam_r',lam_r);
     
-    
-    load OptimExample19May2021Matlab.mat
-    
+      
     
     delta_Lb = mean(abs(Lb - Lb_octave));
     delta_Ep = mean(abs(Ep - Ep_octave));

@@ -12,6 +12,7 @@
 % Author: Ivica Stevanovic (IS), Federal Office of Communications, Switzerland
 % Revision History: 
 % Date            Revision
+% 11FEB22         Aligned with P.1812-6
 % 13APR21         Modified to use tl_p1812_matr.m (matrix version)
 % 28JUL20         Introduced alternative method to compute Lbulls w/o using 
 %                 terrain profile (Attachment 4 to Annex 1)
@@ -31,18 +32,18 @@ fclose all;
 
 try
     
-%     % add path to the folder where the functions are defined
-%     s = pwd;
-%     if ~exist('read_sg3_measurements.m','file')
-%         addpath([s '/src/'])
-%     end
+    % add path to the folder where the functions are defined
+    s = pwd;
+    if ~exist('read_sg3_measurements.m','file')
+        addpath([s '/src/'])
+    end
     
     if (isOctave)
         page_screen_output(0);
         page_output_immediately(1);
     end
 catch
-    error('Folder ./private/ does not appear to be on MATLAB search path.');
+    error('Folder ./private/ does not appear to be on MATLAB/Octave search path.');
 
 end
 

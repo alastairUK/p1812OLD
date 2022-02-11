@@ -1,7 +1,7 @@
-function [Lbfs,Lb0p,Lb0b] = pl_los(d,f,p,b0,dlt,dlr,hts,hrs)
-%pl_los Line-of-sight transmission loss according to ITU-R P.1812-4
+function [Lbfs,Lb0p,Lb0b] = pl_los(d,hts,hrs,f,p,b0,dlt,dlr)
+%pl_los Line-of-sight transmission loss according to ITU-R P.1812-6
 %     This function computes line-of-sight transmission loss (including short-term effects)
-%     as defined in ITU-R P.1812-4.
+%     as defined in ITU-R P.1812-6.
 %
 %     Input parameters:
 %     d       -   Great-circle path distance (km)
@@ -23,7 +23,7 @@ function [Lbfs,Lb0p,Lb0b] = pl_los(d,f,p,b0,dlt,dlr,hts,hrs)
 %     Lb0b    -   Basic transmission loss not exceedd for time percentage, b0%, due to LoS propagation
 %
 %     Example:
-%     [Lbfsg, Lb0p, Lb0b] = pl_los(d, f, p, b0, dlt, dlr)
+%     [Lbfsg, Lb0p, Lb0b] = pl_los(d, hts, hrs, f, p, b0, dlt, dlr)
 %
 %     Rev   Date        Author                          Description
 %     -------------------------------------------------------------------------------
