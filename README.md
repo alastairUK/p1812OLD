@@ -18,16 +18,18 @@ The following table describes the structure of the folder `./matlab/` containing
 The function `tl_p1812` can be called
 
 1. by invoking only the required input arguments:
-
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol);`
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol);
+~~~
 
 2. by explicitly invoking all the input arguments (both required and optional):
-
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);`
-
-3. or by explicitly omitting some of the optional input arguments ([]):
-
-`[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);`
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);
+~~~
+3. or by explicitly omitting some of the optional input arguments using []:
+~~~
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);
+~~~
 
 ## Required input arguments of function `tl_p1812`
 
@@ -70,7 +72,7 @@ The function `tl_p1812` can be called
 | Variable   | Type   | Units | Description |
 |------------|--------|-------|-------------|
 | `Lb`    | double | dB    | Basic transmission loss |
-| `Ep`    | double | dB    | Electric field strength |
+| `Ep`    | double | dB(uV/m)    | Electric field strength |
 
 ## Software Versions
 The code was tested and runs on:
@@ -79,4 +81,6 @@ The code was tested and runs on:
 
 ## References
 
-[Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en).
+[Recommendation ITU-R P.1812](https://www.itu.int/rec/R-REC-P.1812/en)
+
+[ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx)
