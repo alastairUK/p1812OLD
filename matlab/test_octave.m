@@ -6,7 +6,7 @@ if (~isOctave())
     
     fprintf(1,'This script compares results obtained in Octave\n');
     fprintf(1,'with the reference results obtained in MATLAB\n');
-    fprintf(1,'using input data defined in OptimExample19May2021.mat\n');
+    fprintf(1,'using input data defined in OptimExample11Feb2022.mat\n');
     fprintf(1,'Please run the script in Octave\n');
 else
     
