@@ -38,7 +38,7 @@ The function `tl_p1812` can be called
 
 | Variable          | Type   | Units | Limits       | Description  |
 |-------------------|--------|-------|--------------|--------------|
-| `f`               | scalar double | GHz   | 0 ≤ `f` ≤ 6 | Frequency   |
+| `f`               | scalar double | GHz   | 0.03 ≤ `f` ≤ 6 | Frequency   |
 | `p         `      | scalar double | %     | 1 ≤ `p` ≤ 50 | Time percentage for which the calculated basic transmission loss is not exceeded |
 | `d`               | array double | km    | ~0.25 ≤ `max(d)` ≤ ~3000 | Terrain profile distances (in the ascending order from the transmitter)|
 | `h`          | array double | m (asl)   |   | Terrain profile heights |
