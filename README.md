@@ -1,6 +1,6 @@
 # MATLAB/Octave Implementation of Recommendation ITU-R P.1812-6
 
-This code repository contains a MATLAB/Octave software implementation of Recommendation ITU-R P.1812 with a path-specific propagation prediction method for point-to-area terrestrial services in the frequency range 30 MHz to 6000 MHz.  
+This code repository contains a MATLAB/Octave software implementation of [Recommendation ITU-R P.1812-6](https://www.itu.int/rec/R-REC-P.1812/en) with a path-specific propagation prediction method for point-to-area terrestrial services in the frequency range 30 MHz to 6000 MHz.  
 
 The reference version of this code (as approved by ITU-R Working Party 3K) is published by Study Group 3 on [ITU-R SG 3 Software, Data, and Validation Web Page](https://www.itu.int/en/ITU-R/study-groups/rsg3/Pages/iono-tropo-spheric.aspx).
 
@@ -25,11 +25,13 @@ The function `tl_p1812` can be called
 
 2. by explicitly invoking all the input arguments (both required and optional):
 ~~~
-[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, ...
+                    pL, sigmaLoc, Ptx, DN, N0, dct, dcr, flag4, debug, fid_log);
 ~~~
 3. or by explicitly omitting some of the optional input arguments using []:
 ~~~
-[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);
+[Lb, Ep] = tl_p1812(f, p, d, h, R, Ct, zone, htg, hrg, phi_t, phi_r, lam_t, lam_r, pol, ... 
+                    pL, sigmaLoc, [], DN, N0, [], [], flag4, debug, fid_log);
 ~~~
 
 ## Required input arguments of function `tl_p1812`
